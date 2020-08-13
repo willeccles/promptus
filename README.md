@@ -1,5 +1,9 @@
 # Promptus
-🌵 Simple shell prompt program in C.
+
+Simple and configurable shell prompt program in C which can be used to make your
+prompt the same on any shell.
+
+![preview of promptus](/preview.png)
 
 ## Features
 
