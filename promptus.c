@@ -61,6 +61,22 @@ static char* basename(const char* path) {
 }
 
 int main(int argc, char** argv) {
+    // get the shell so we know which escapes to use
+    char* lescape = "";
+    char* rescape = "";
+
+    char* shell = getenv("SHELL");
+    if (shell) {
+        char* bshell = basename(shell);
+        if (0 == strcmp(bshell, "zsh")) {
+            lescape = "%{";
+            rescape = "%}";
+        } else if (0 == strcmp(bshell, "bash")) {
+            lescape = "\\[";
+            rescape = "\\]";
+        }
+    }
+
 #if PROMPT_STATUS
     int laststatus = 0;
     if (argc > 1) {
@@ -87,7 +103,7 @@ int main(int argc, char** argv) {
     }
 # endif // PWD_ABBREV_HOME
 
-    printf("%s%s%s ", colors[COLOR_PWD], _pwd, colors[COLOR_RESET]);
+    printf("%s%s%s%s%s%s%s ", lescape, colors[COLOR_PWD], rescape, _pwd, lescape, colors[COLOR_RESET], rescape);
 #endif // SHOW_PWD
 
     // prompt color
@@ -103,7 +119,7 @@ int main(int argc, char** argv) {
     }
 #endif // PROMPT_STATUS
 
-    printf("%s%s%s ", pcolor, prompt, colors[COLOR_RESET]);
+    printf("%s%s%s%s%s%s%s ", lescape, pcolor, rescape, prompt, lescape, colors[COLOR_RESET], rescape);
 
     return 0;
 }
