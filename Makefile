@@ -9,7 +9,7 @@ CPPFLAGS += -D_POSIX_C_SOURCE=1
 
 all: $(TARGET)
 
-$(TARGET): $(SRC)
+$(TARGET): config.h $(SRC)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o $@
 
 install: $(TARGET)
