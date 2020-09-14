@@ -2,7 +2,7 @@
  * This is the actual prompt. Can be one character or multiple.
  * Note that a space will automatically be added after this string.
  */
-static const char* prompt = "➜";
+static const char* prompt = "♥";
 
 /*
  * Enable this if you want the PWD to be displayed.
@@ -22,7 +22,9 @@ static const char* prompt = "➜";
 
 /*
  * Enable this to abbreviate the PWD to ~ if you're in your home
- * directory.
+ * directory. If PWD_BASENAME is disabled, this also replaces $HOME in your pwd
+ * with ~ if you're in a subdirectory of home. For example,
+ * /home/cactus/git/promptus would become ~/git/promptus.
  *
  * (Enabled by default)
  */
@@ -58,8 +60,8 @@ static const char* prompt = "➜";
  *    don't need to change this)
  */
 static const char* colors[] = {
-    [COLOR_PWD]        = "\033[35;1m",
-    [COLOR_PROMPT]     = "\033[32m",
+    [COLOR_PWD]        = "\033[32m",
+    [COLOR_PROMPT]     = "\033[35m",
     [COLOR_PROMPT_ERR] = "\033[31m",
     [COLOR_PROMPT_BG]  = "\033[33m",
     [COLOR_RESET]      = "\033[m",

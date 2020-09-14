@@ -100,7 +100,15 @@ int main(int argc, char** argv) {
         if (samefile(pwd, home)) {
             _pwd = "~";
         }
+#  if !PWD_BASENAME
+        // replace instance of $HOME with ~ if applicable
+        if (!strncmp(_pwd, home, strlen(home))) {
+            _pwd += strlen(home) - 1;
+            *_pwd = '~';
+        }
+#  endif // not PWD_BASENAME
     }
+
 # endif // PWD_ABBREV_HOME
 
     printf("%s%s%s%s%s%s%s ", lescape, colors[COLOR_PWD], rescape, _pwd, lescape, colors[COLOR_RESET], rescape);
