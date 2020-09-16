@@ -1,5 +1,7 @@
 TARGET = promptus
 SRC = promptus.c
+CONF = config.h
+DEFCONF = config.def.h
 PREFIX ?= /usr/local
 
 CFLAGS += -O3 -std=c11 -Wall -W -pedantic
@@ -9,8 +11,11 @@ CPPFLAGS += -D_POSIX_C_SOURCE=1
 
 all: $(TARGET)
 
-$(TARGET): config.h $(SRC)
+$(TARGET): $(CONF) $(SRC)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o $@
+
+$(CONF):
+	@cp -v $(DEFCONF) $(CONF)
 
 install: $(TARGET)
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
