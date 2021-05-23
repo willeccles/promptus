@@ -111,7 +111,14 @@ int main(int argc, char** argv) {
 
 # endif // PWD_ABBREV_HOME
 
-  printf("%s%s%s%s%s%s%s ", lescape, colors[COLOR_PWD], rescape, _pwd, lescape, colors[COLOR_RESET], rescape);
+  printf("%s%s%s%s%s%s%s ",
+         lescape,
+         colors[COLOR_PWD],
+         rescape,
+         _pwd,
+         lescape,
+         colors[COLOR_RESET],
+         rescape);
 #endif // SHOW_PWD
 
   // prompt color
@@ -127,7 +134,14 @@ int main(int argc, char** argv) {
   }
 #endif // PROMPT_STATUS
 
-  printf("%s%s%s%s%s%s%s ", lescape, pcolor, rescape, prompt, lescape, colors[COLOR_RESET], rescape);
+  printf("%s%s%s%s%s%s%s ",
+         lescape,
+         pcolor,
+         rescape,
+         prompt,
+         lescape,
+         colors[COLOR_RESET],
+         rescape);
 
   return 0;
 }
