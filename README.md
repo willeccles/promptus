@@ -15,6 +15,7 @@ them:
 - Abbreviation of `$HOME` to `~` (enabled by default)
 - Coloring of prompt based on exit code of previous program (enabled by default)
 - Customizable color set
+- Python venv prefix support
 
 ## Configuration
 
