@@ -49,6 +49,14 @@ static const char* prompt = "♥";
 #define PROMPT_STATUS 1
 
 /*
+ * Enable support for python venv prompts. This option just displays python's
+ * venv prompt in front of the prompt.
+ *
+ * (Enabled by default)
+ */
+#define ENABLE_PY_VENV 1
+
+/*
  * Color options:
  *  - COLOR_PWD: color of the PWD if enabled
  *  - COLOR_PROMPT: color of the prompt
@@ -56,6 +64,8 @@ static const char* prompt = "♥";
  *    errored out (see the PROMPT_STATUS option)
  *  - COLOR_PROMPT_BG: color of the prompt if the last program
  *    was backgrounded with ^Z (see the PROMPT_STATUS option)
+ *  - COLOR_PREFIX: color code used for prefixes added to the prompt such as the
+ *    python venv
  *  - COLOR_RESET: color code to reset the text color (you probably
  *    don't need to change this)
  */
@@ -64,5 +74,6 @@ static const char* colors[] = {
     [COLOR_PROMPT]     = "\033[35m",
     [COLOR_PROMPT_ERR] = "\033[31m",
     [COLOR_PROMPT_BG]  = "\033[33m",
+    [COLOR_PREFIX]     = "\033[34m",
     [COLOR_RESET]      = "\033[m",
 };

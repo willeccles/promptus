@@ -12,6 +12,7 @@ enum COLOR_CODES {
   COLOR_PROMPT,
   COLOR_PROMPT_ERR,
   COLOR_PROMPT_BG,
+  COLOR_PREFIX,
   COLOR_RESET,
 };
 
@@ -29,7 +30,7 @@ enum COLOR_CODES {
 #endif
 
 
-static bool samefile(char* path1, char* path2) {
+static bool samefile(const char* path1, const char* path2) {
   struct stat stat1, stat2;
   if (path1 != NULL && path2 != NULL
       && stat(path1, &stat1) == 0
@@ -62,12 +63,13 @@ static char* basename(const char* path) {
 
 int main(int argc, char** argv) {
   // get the shell so we know which escapes to use
-  char* lescape = "";
-  char* rescape = "";
+  const char* lescape = "";
+  const char* rescape = "";
+  const char* prefix = "";
 
-  char* shell = getenv("SHELL");
+  const char* shell = getenv("SHELL");
   if (shell) {
-    char* bshell = basename(shell);
+    const char* bshell = basename(shell);
     if (0 == strcmp(bshell, "zsh")) {
       lescape = "%{";
       rescape = "%}";
@@ -84,6 +86,19 @@ int main(int argc, char** argv) {
   }
 #endif // PROMPT_STATUS
 
+#if ENABLE_PY_VENV
+  prefix = getenv("VIRTUAL_ENV_PROMPT");
+  if (!prefix) {
+    prefix = "";
+  }
+#endif // ENABLE_PY_VENV
+
+  printf("%s%s%s%s",
+         lescape,
+         colors[COLOR_PREFIX],
+         rescape,
+         prefix);
+
 #if SHOW_PWD
   char pwd[PATH_MAX] = {0};
   getrealcwd(pwd, PATH_MAX-1);
@@ -95,7 +110,7 @@ int main(int argc, char** argv) {
 # endif // PWD_BASENAME
 
 # if PWD_ABBREV_HOME
-  char* home = getenv("HOME");
+  const char* home = getenv("HOME");
   if (home) {
     if (samefile(pwd, home)) {
       _pwd = "~";
