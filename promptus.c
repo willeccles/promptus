@@ -99,6 +99,11 @@ int main(int argc, char** argv) {
          rescape,
          prefix);
 
+  size_t l = strlen(prefix);
+  if (l > 0 && prefix[l - 1] != ' ') {
+    printf(" ");
+  }
+
 #if SHOW_PWD
   char pwd[PATH_MAX] = {0};
   getrealcwd(pwd, PATH_MAX-1);
