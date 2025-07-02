@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
   }
 
   fmt::print("{}{}{}{}",
-             lescape, config::Colors(StyleItem::kPrefix), rescape, prefix);
+             lescape, Colors(StyleItem::kPrefix), rescape, prefix);
   if (!prefix.empty() && prefix.back() != ' ') {
     fmt::print(" ");
   }
@@ -116,25 +116,25 @@ int main(int argc, char** argv) {
     }
 
     fmt::print("{}{}{}{}{}{}{} ",
-               lescape, config::Colors(StyleItem::kPwd), rescape,
+               lescape, Colors(StyleItem::kPwd), rescape,
                pwd,
-               lescape, config::Colors(StyleItem::kReset), rescape);
+               lescape, Colors(StyleItem::kReset), rescape);
   }
 
-  std::string_view pcolor = config::Colors(StyleItem::kPrompt);
+  std::string_view pcolor = Colors(StyleItem::kPrompt);
 
   if constexpr (config::kPromptStatus) {
     if (laststatus == 0 || laststatus == 130) {
-      pcolor = config::Colors(StyleItem::kPrompt);
+      pcolor = Colors(StyleItem::kPrompt);
     } else if (laststatus == BACKGROUND_CODE) {
-      pcolor = config::Colors(StyleItem::kPromptBg);
+      pcolor = Colors(StyleItem::kPromptBg);
     } else {
-      pcolor = config::Colors(StyleItem::kPromptErr);
+      pcolor = Colors(StyleItem::kPromptErr);
     }
   }
 
   fmt::print("{}{}{}{}{}{}{} ",
              lescape, pcolor, rescape,
              config::kPrompt,
-             lescape, config::Colors(StyleItem::kReset), rescape);
+             lescape, Colors(StyleItem::kReset), rescape);
 }
