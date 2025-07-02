@@ -1,21 +1,17 @@
 TARGET = promptus
-SRC = promptus.c
-CONF = config.h
-DEFCONF = config.def.h
+SRC = promptus.cpp
 PREFIX ?= /usr/local
 
-CFLAGS += -O3 -std=c11 -Wall -W -pedantic
+CXXFLAGS += -O3 -std=c++20 -Wall -W -pedantic
 CPPFLAGS += -D_POSIX_C_SOURCE=1
+LDFLAGS += -lfmt
 
 .PHONY: all install uninstall clean
 
 all: $(TARGET)
 
-$(TARGET): $(CONF) $(SRC)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o $@
-
-$(CONF):
-	@cp -v $(DEFCONF) $(CONF)
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o $@
 
 install: $(TARGET)
 	mkdir -p $(DESTDIR)$(PREFIX)/bin

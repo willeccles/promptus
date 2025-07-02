@@ -1,7 +1,9 @@
 # Promptus
 
-Simple and configurable shell prompt program in C which can be used to make your
-prompt the same on any shell.
+Simple and configurable shell prompt program in C++ which can be used to make
+your prompt the same on any shell.
+
+Requires C++20 and {fmt}.
 
 ![preview of promptus](/preview.png)
 
@@ -28,7 +30,7 @@ install and `make uninstall` to uninstall.
 
 ## Usage
 
-Simply running promptus is enough. If `PROMPT_STATUS` is enabled in config.h,
+Simply running promptus is enough. If `kPromptStatus` is enabled in config.h,
 pass the exit code of the previous process as the first argument (or don't,
 which allows you to disable this feature at runtime without rebuilding
 promptus).
