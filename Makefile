@@ -10,7 +10,7 @@ LDFLAGS += -lfmt
 
 all: $(TARGET)
 
-$(TARGET): $(SRC)
+$(TARGET): $(SRC) config.h
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS) $(SRC) -o $@
 
 install: $(TARGET)

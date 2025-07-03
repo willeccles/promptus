@@ -3,11 +3,16 @@
 
 #include <string_view>
 
+#include "colors.h"
+
 namespace config {
 
 // The actual prompt. May be more than one character. Uses the kPrompt style.
 // A space will be appended to this string.
 inline constexpr std::string_view kPrompt{"♥"};
+
+// Whether to display the user and host. Uses the kUser style.
+inline constexpr bool kShowUserAndHost{false};
 
 // Whether to display the PWD. Uses the kPwd style.
 inline constexpr bool kShowPwd{true};
@@ -42,6 +47,7 @@ enum class StyleItem {
   kPromptErr,
   kPromptBg,
   kPrefix,
+  kUser,
   kReset,
 };
 
@@ -51,19 +57,22 @@ inline constexpr std::string_view Colors(StyleItem item) {
   switch (item) {
     case StyleItem::kPwd:
       // Working directory.
-      return "\033[32m"sv;
+      return colors::kGreen;
     case StyleItem::kPrompt:
       // Prompt.
-      return "\033[35m"sv;
+      return colors::kMagenta;
     case StyleItem::kPromptErr:
       // Prompt (error).
-      return "\033[31m"sv;
+      return colors::kRed;
     case StyleItem::kPromptBg:
       // Prompt (process backgrounded).
-      return "\033[33m"sv;
+      return colors::kYellow;
     case StyleItem::kPrefix:
       // Prefix (e.g., Python venv).
-      return "\033[34m"sv;
+      return colors::kBlue;
+    case StyleItem::kUser:
+      // Username and hostname.
+      return colors::kCyan;
     case StyleItem::kReset:
       // Reset style (you probably don't need to change this).
       return "\033[m"sv;

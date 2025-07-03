@@ -3,8 +3,11 @@
 #include <cstdlib>
 #include <filesystem>
 #include <optional>
+#include <pwd.h>
 #include <span>
 #include <string_view>
+#include <sys/types.h>
+#include <sys/utsname.h>
 
 #include <fmt/format.h>
 
@@ -90,6 +93,20 @@ int main(int argc, char** argv) {
              lescape, Colors(StyleItem::kPrefix), rescape, prefix);
   if (!prefix.empty() && prefix.back() != ' ') {
     fmt::print(" ");
+  }
+
+  if constexpr (config::kShowUserAndHost) {
+    struct ::passwd* pw = ::getpwuid(::getuid());
+    struct ::utsname un;
+    if (pw && ::uname(&un) != -1) {
+      fmt::print("{2}{4}{3}{0}@{1}{2}{5}{3}:",
+                 pw->pw_name,                 // 0
+                 un.nodename,                 // 1
+                 lescape,                     // 2
+                 rescape,                     // 3
+                 Colors(StyleItem::kUser),    // 4
+                 Colors(StyleItem::kReset));  // 5
+    }
   }
 
   if constexpr (config::kShowPwd) {
